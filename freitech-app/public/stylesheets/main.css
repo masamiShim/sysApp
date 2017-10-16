@@ -1,0 +1,17 @@
+body{
+	font-family:"ƒqƒ‰ƒMƒmŠpƒS Pro W3",ƒƒCƒŠƒI,Osaka,Arial,Verdana,"‚l‚r ‚oƒSƒVƒbƒN",sans-serif;
+	font-size: 10px;
+}
+
+.footer,.header{
+	background-color: #000080;
+}	
+
+.copyright,.header{
+	color: #fffafa;
+	padding: 1em 0em;
+}
+
+.taC{
+	text-align: center;
+}

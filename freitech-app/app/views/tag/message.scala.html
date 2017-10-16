@@ -1,0 +1,40 @@
+@* message Template File *@
+@(mesSeq: Seq[utils.FeMessages])
+
+@* メッセージボディ部の再利用コンポーネント *@
+@display(mes: Seq[utils.FeMessages]) = {
+		  @mes.map{m=>
+		  	<div>->@m.mes
+		  		@if(!m.mId.isEmpty){<strong>:@m.mId</strong>}
+		  	</div>
+		  }
+}
+	
+@* エラー文面の処理 *@
+@defining(mesSeq.collect{ case m:utils.DispError => m }){ errors =>
+	@if(!errors.isEmpty){
+	  <div class="alert alert-danger" role="alert">
+	  <h4 class="alert-heading">入力内容を確認してください。</h4>
+		@display(errors)
+	  </div>
+	}
+}
+@* 警告文面の処理 *@
+@defining(mesSeq.collect{ case w:utils.DispWarn => w }){ warns =>
+	@if(!warns.isEmpty){
+	 <div class="alert alert-warning" role="alert">
+	  <h4 class="alert-heading">Warning</h4>
+		@display(warns)
+	  </div>
+	}
+}
+
+@* 情報文面の処理 *@
+@defining(mesSeq.collect{ case i:utils.DispInfo => i }){ infos =>
+	@if(!infos.isEmpty){
+	 <div class="alert alert-info" role="alert">
+	  <h4 class="alert-heading">Info</h4>
+		@display(infos)
+	  </div>
+	}
+}

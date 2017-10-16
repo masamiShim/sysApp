@@ -1,0 +1,33 @@
+@* login Template File *@
+@(title: String, mesSeq: Seq[utils.FeMessages] = Nil, loginForm: Form[forms.LoginForm])(implicit messages:Messages)
+@import b4.vertical.fieldConstructor
+<html lang="ja">
+    <head>
+        @* Here's where we render the page title `String`. *@
+        <title>@title | システムテンプレート</title>
+        @layout.header()
+        <style>
+        	body{
+        		padding: 5%;
+        	}
+        </style>
+    </head>
+    <body>
+    @* メッセージ出力 *@
+    @tag.message(mesSeq)
+    	
+    @b4.form(controllers.routes.LoginController.login, '_id -> "loginForm", '_class -> "form-group taC"){
+		<fieldset class="col-md-5">	
+			<div class="check-form">
+				@b4.text(loginForm("loginId"), '_label->"ログインID", '_class ->"input-sm")
+				@b4.text(loginForm("pass"), '_label->"パスワード", '_class ->"input-sm")
+				<div  style="text-align:center;">
+					<button type="submit" id="login" class="btn btn-primary" value="login">ログイン</button>
+				</div>
+			</div><!-- /.check-form -->
+			
+		</fieldset><!-- /.row -->
+	}
+	</body>
+</html>
+	

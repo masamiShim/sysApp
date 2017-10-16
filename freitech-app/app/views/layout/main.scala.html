@@ -1,0 +1,31 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+@(title: String,mesSeq: Seq[utils.FeMessages] = Nil)(content: Html)
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        @* Here's where we render the page title `String`. *@
+        <title>@title | システムテンプレート</title>
+        @layout.header()
+    </head>
+    <body>
+       @* メニュー出力 *@
+       @tag.menu()
+       @* ロゴ出力 *@
+       @tag.logo()
+       <hr/>
+       <div class="container">
+       	  <h2 id="title" class="titleArea">@title</h2>
+	       @* メッセージ出力 *@
+	       @tag.message(mesSeq)
+    	   @* ページ内コンテンツ *@
+	       @content
+       </div>
+       @* フッター出力 *@
+       @layout.footer()
+    </body>
+</html>

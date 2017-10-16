@@ -1,0 +1,36 @@
+@(title: String
+	, mesList: Seq[utils.FeMessages]
+	, bindForm: Form[models.Member]
+	, isUpd: Boolean
+	)(implicit messages:Messages)
+@import layout._
+@import helper._
+@* bootstrap4のヘルパーを使うためインポート*@
+@implicitFieldConstructor = @{ b4.horizontal.fieldConstructor("col-md-2", "col-md-8") }	
+@implicitField = @{ FieldConstructor(inputForm.f)}
+@main(title,mesList) {
+		<p id="description" class="description">登録内容を入力してください</p>
+		@b4.form(controllers.routes.MemberController.confirm, '_id -> "checkForm", '_class -> "form-group"){
+			<div>	
+				<div class="check-form">
+				@if(isUpd){
+						@b4.text(bindForm("loginId"), '_label->"ログインID", '_help -> "※〇〇桁以内", 'readonly -> "true")
+				}else{
+						@b4.text(bindForm("loginId"), '_label->"ログインID", '_help -> "※〇〇桁以内")
+				}
+						@b4.password(bindForm("password"), '_label->"パスワード", '_help -> "※〇〇桁以内")
+						@b4.password(bindForm("confirmed"), '_label->"確認用パスワード", '_help -> "※〇〇桁以内")
+						@b4.text(bindForm("sei"), '_label->"姓", '_help -> "※〇〇桁以内")
+						@b4.text(bindForm("mei"), '_label->"名", '_help -> "※〇〇桁以内")
+						@b4.tel(bindForm("tel"), '_label->"電話番号", '_help -> "※〇〇桁以内")
+						@b4.email(bindForm("email"), '_label->"メールアドレス", '_help -> "※〇〇桁以内")
+				</div><!-- /.check-form -->
+			</div><!-- /.row -->
+			<div class="row">
+				<button type="submit" id="rcMember" class="btn btn-primary" value="confirm">確認</button>
+		}
+				@b4.form(controllers.routes.MemberController.index, '_id -> "bindForm", '_class -> "form-group"){
+					<button type="submit" id="back" class="btn btn-secondary" value="back">戻る</button>
+				}
+			</div>		
+}

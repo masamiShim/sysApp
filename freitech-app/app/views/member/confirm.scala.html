@@ -1,0 +1,30 @@
+@(title: String, mesList: Seq[utils.FeMessages], bindForm: Form[models.Member])(implicit messages:Messages)
+@import layout._
+@import helper._
+@* bootstrap4のヘルパーを使うためインポート*@
+@implicitFieldConstructor = @{ b4.horizontal.fieldConstructor("col-md-2", "col-md-8") }	
+@implicitField = @{ FieldConstructor(inputForm.f)}
+@main(title,mesList) {
+	<p id="description" class="description">登録内容を確認してください</p>
+	@b4.form(controllers.routes.MemberController.create, '_id -> "checkForm", '_class -> "form-group"){
+		<div>	
+			<div class="check-form">
+					@b4.text(bindForm("loginId"), '_label->"ログインID", 'readonly -> "true")
+					@b4.text(bindForm("sei"), '_label->"姓", 'readonly -> "true")
+					@b4.text(bindForm("mei"), '_label->"名", 'readonly -> "true")
+					@b4.text(bindForm("tel"), '_label->"電話番号", 'readonly -> "true")
+					@b4.text(bindForm("email"), '_label->"メールアドレス", 'readonly -> "true")
+					@b4.hidden(bindForm("password"))
+			</div><!-- /.check-form -->
+		</div><!-- /.row -->
+		<div class="row">
+			<button type="submit" id="rMember" class="btn btn-primary" value="reg">登録</button>
+	}
+			@b4.form(controllers.routes.MemberController.input, '_id -> "checkForm", '_class -> "form-group"){
+				<button type="submit" id="back" class="btn btn-secondary" value="back">戻る</button>
+			}	
+		</div>		
+	
+}
+
+

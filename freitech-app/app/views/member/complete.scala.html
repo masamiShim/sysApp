@@ -1,0 +1,12 @@
+@(title: String, mesList: Seq[utils.FeMessages])(implicit messages:Messages)
+@import layout._
+@import helper._
+@* bootstrap4のヘルパーを使うためインポート*@
+@implicitFieldConstructor = @{ b4.horizontal.fieldConstructor("col-md-2", "col-md-8") }	
+@implicitField = @{ FieldConstructor(inputForm.f)}
+@main(title,mesList) {
+		@b4.form(controllers.routes.MemberController.index, '_id -> "checkForm", '_class -> "form-group"){
+		<input type="submit" id="back" class="btn" value="戻る"/>
+	}
+	
+}

@@ -1,0 +1,25 @@
+@*
+@(title: String, message: String, bindForm: Form[models.ResultPostRequest])(implicit messages:Messages)
+@import layout._
+@import helper._
+@import b4.vertical.fieldConstructor
+	
+@implicitField = @{ FieldConstructor(inputForm.f)}
+@main(title) {
+	<h2 class="copy-align">@message</h2>
+	<p id="description" class="description">Twitterのユーザ名を入れてください</p>
+	@b4.form(controllers.routes.Check.result, '_id -> "checkForm"){
+		<div class="row">	
+			<div class="col-md-4 col-md-offset-4 check-form">
+				<div class="input-group">
+					@b4.text(bindForm("name"),  '_class -> "form-control")
+					<span class="input-group-btn">
+						<input type="submit" id="checkYourName" class="btn btn-default" value="Submit"/>
+					</span>
+				</div><!-- /input-group -->
+			</div><!-- /.check-form -->
+		</div><!-- /.row -->
+	}	
+}
+
+*@

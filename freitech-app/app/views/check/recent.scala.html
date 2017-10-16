@@ -1,0 +1,27 @@
+@* recent Template File
+@(title: String, message: String, entryList: Seq[models.Check], page: Int, maxPage: Int)
+@import layout._
+@import helper._
+
+@layout.main(title){
+	<h2>@title</h2>
+	<p>@message</p>
+		<table class="table table-striped">
+			<tr>
+				<th class="table-column-first">お名前</th>
+				<th class="table-column-second">診断結果</th>
+				<th class="table-column-third">シェア用ページ</th>
+				<th class="table-column-fourth">登録日時</th>
+			</tr>
+			@for(entry <- entryList){
+				<tr>
+					<td>@entry.name</td>
+					<td>@entry.result</td>
+					<td><a href="@routes.Check.resultId(entry.id).absoluteURL(false,"localhost")">LINK</a></td>
+					<td>@helper.defaultDate(entry.created)</td>
+				</tr>
+			}
+		</table>
+		@helper.paginate(page, maxPage)
+}
+ *@

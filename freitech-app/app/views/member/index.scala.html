@@ -1,0 +1,60 @@
+@(title: String
+	, mesList: Seq[utils.FeMessages]
+	, searchCond: Form[forms.MemberForm.SearchCondForm]
+	, results: Seq[models.Member]
+	)(implicit messages:Messages)
+@import layout._
+@import helper._
+@* bootstrap4のヘルパーを使うためインポート*@
+
+@implicitFieldConstructor = @{ b4.horizontal.fieldConstructor("col-md-2", "col-md-8") }	
+@implicitField = @{ FieldConstructor(inputForm.f)}
+@main(title,mesList) {
+	@b4.form(controllers.routes.MemberController.result, '_id -> "bindForm", '_class -> "form-group"){
+		<fieldset class="form-group">	
+			<div class="check-form">
+					@b4.text(searchCond("loginId"), '_label->"ログインID", '_class ->"input-sm", '_help -> "※前方一致")
+					@b4.text(searchCond("sei"), '_label->"姓", '_help -> "※部分一致")
+					@b4.text(searchCond("mei"), '_label->"名", '_help -> "※部分一致")
+			</div><!-- /.check-form -->
+			</fieldset><!-- /.row -->
+	<div class="row">
+		<button type="submit" id="searchMember" class="btn btn-default" value="search">検索</button>			
+	}
+	@b4.form(controllers.routes.MemberController.input, '_id -> "bindForm", '_class -> "form-group"){
+		<button type="submit" id="registhMember" class="btn btn-primary" value="reg">新規登録</button>
+	}
+	</div>
+	<hr/>
+	<div class="row">
+			<h4 class="col-md-10">検索結果</h4><span>@results.size　件</span>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-sm table-striped">
+		<thead>
+			<tr>
+				<th>ログインID</th>
+				<th>姓</th>
+				<th>名</th>
+				<th>電話番号</th>
+				<th>メールアドレス</th>
+			</tr>
+		</thead>
+		<tbody>
+		@if(!results.isEmpty){
+			@results.map {result =>
+			<tr>
+				<td>
+					<a href="/member/update/@result.loginId">@result.loginId</a>
+				</td>
+				<td>@result.sei</td>
+				<td>@result.mei</td>
+				<td>@result.tel</td>
+				<td>@result.email</td>
+			</tr>
+			}
+		}
+		</tbody>
+		</table>
+	</div>
+}
